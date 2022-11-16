@@ -1,0 +1,19 @@
+.main-header {
+  position: fixed;
+  /* element removed from normal document flow, and no space is created for the element in the page layout */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  /* puts everything into a row by default */
+  justify-content: space-between;
+  align-items: center;
+  /* vertical alignment */
+  background: #741188;
+  padding: 0 2rem;
+}
+
+.main-header h1 {
+  color: white;
+}

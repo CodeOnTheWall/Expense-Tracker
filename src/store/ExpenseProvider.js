@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import ExpenseContext from "./expense-context";
 
@@ -53,14 +53,12 @@ const ExpenseProvider = (props) => {
   };
   // Handlers
 
+  // react knows the previous state automatically, when used with a state changing function
   const addExpenseDataHandler = (expense) => {
     setExpensesArray((prevExpenses) => {
-      // console.log(prevExpenses);
       return [expense, ...prevExpenses];
     });
   };
-  // react will auto give us prevExpenses (whatever is in the array before adding new expense) when used in conjunction with a state changing function
-  // then this state changing function updates expensesArray
 
   const expenseContext = {
     expensesArray: expensesArray,
@@ -70,13 +68,13 @@ const ExpenseProvider = (props) => {
     onLogin: loginHandler,
   };
 
+  // add value={someContext} so that all the children get these props/functions
   return (
     <ExpenseContext.Provider value={expenseContext}>
       {props.children}
     </ExpenseContext.Provider>
   );
 };
-// add value={someContext} so that all the children get these props/functions
 
 export default ExpenseProvider;
 

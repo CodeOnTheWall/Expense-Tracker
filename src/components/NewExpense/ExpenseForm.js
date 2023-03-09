@@ -30,7 +30,11 @@ const ExpenseForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    if (enteredTitle.trim().length === 0 || enteredAmount.trim().length === 0) {
+    if (
+      enteredTitle.trim().length === 0 ||
+      enteredAmount.trim().length === 0 ||
+      !enteredDate
+    ) {
       // trim takes away any empty spaces (whitespace) without modifying the original string
       setError({
         title: "Invalid input",

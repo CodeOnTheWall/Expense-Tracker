@@ -18,7 +18,6 @@ import ExpenseContext from "../../store/expense-context";
 
 import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
-
 import Button from "../UI/Button/Button";
 import Input from "../UI/Input/input";
 
@@ -30,21 +29,18 @@ const ACTIONS = {
 // reducerFn(s), in this case emailReducer, will automatically get the most recent state snapshot from react (param of state)
 // reducerFn(s) can be outside the functional component
 // when a dispatchFn is called, react will call reducerFn's and then the reducerFn will match the if with the info of the passed in action,
-// and return a new state (via passing emailReducer into useReducer which updates state)
+// and return a new state (via passing emailReducer into useReducer which updates state, and clears the dispatch for more dispatches to come)
 const emailReducer = (state, action) => {
-  // most recent state, and action passed in from dispatchEmail
+  // the state will contain value and isValid
   if (action.type === ACTIONS.USERINPUT) {
     return {
       value: action.emailInputValue,
       isValid: action.emailInputValue.includes("@"),
     };
   }
-  // action is what is passed in from dispatchEmail, which is: { type: "USER_INPUT", emailInputValue: event.target.value }
-  // isValid becomes true if action includes @
   if (action.type === ACTIONS.INPUTBLUR) {
     return { value: state.value, isValid: state.value.includes("@") };
   }
-  // state.value would then be the last value that was entered in (action.emailInputValue), and giving that isValid if includes @
   return { value: "", isValid: false };
   // if no .includes('@') then return default state
 };
@@ -70,8 +66,7 @@ const Login = () => {
   // our states
   // useReducer always returns an array with exactly 2 values, which below we destructure to get emailState and dispatchEmail
   // this is better state management, so first value (emailState) is latest state snapshot, and second value is a function that allows us to update that state snapshot
-  // but instead of just setting a new state value, we will also dispatch an action, and this action will be consumed by the first arg passed into useReducer
-  // which here, is emailReducer. Our object after is our inital state
+  // after onChange or onBlur, that goes to their relative handlers, which then dispatch the data to the reducer funcs, which then update the state here
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: "",
     isValid: null,
@@ -106,7 +101,7 @@ const Login = () => {
       console.log("Checking form validity!");
       setFormIsValid(
         emailIsValid && passwordIsValid
-        // setFormIsValid will only run 1 second after, if emailIsValid and passwordIsValid, which are consts that already imply isValid: true
+        // setFormIsValid will only run 2 second after, if emailIsValid and passwordIsValid, which are consts that already imply isValid: true
       );
     }, 2000);
     // we can use this identifier to clear this timer - after 1 sec setFormIsValid will run

@@ -17,6 +17,10 @@ const ExpensesChart = (props) => {
     { label: "Dec", value: 0 },
   ];
 
+  // for each expense, extract month of expense via getMonth
+  // then add expense amount by inserting that month into chartDataPoints,
+  // essentially giving it the value of expense.amount, then inserting
+  // then giving Chart component our dataPoints
   for (const expense of props.filteredExpenses) {
     const expenseMonth = expense.date.getMonth(); // starting at 0 => January => 0
     // console.log(expenseMonth);

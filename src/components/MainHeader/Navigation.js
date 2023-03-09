@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 
 import ExpenseContext from "../../store/expense-context";
-
 import Button from "../UI/Button/Button";
-
 import classes from "./Navigation.module.css";
 
 const Navigation = () => {
